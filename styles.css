@@ -1,0 +1,21 @@
+#custom-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 3px;
+  svg {
+    display: none;
+  }
+  margin-top: 5px;
+}
+
+#custom-checkbox[aria-checked] {
+  svg {
+    display: block;
+  }
+}
+
+#custom-checkbox:focus-visible, .custom-focus {
+  outline-offset: 2px;
+  outline: rgb(0, 95, 204) solid 2px;
+}

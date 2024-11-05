@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML + CSS</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      let nativeCheckbox;
+      let customCheckbox;
+
+      /* Select both elements once the window is loaded
+       * Before then, both queries would return undefined
+       */
+      window.onload = function () {
+        nativeCheckbox = document.getElementById("native-checkbox");
+        customCheckbox = document.getElementById("custom-checkbox");
+      };
+
+      function toggleCheckbox(shouldPropagate = false) {
+        /* Adding aria-checked attribute for non-native input element */
+        customCheckbox.toggleAttribute("aria-checked");
+
+        /* Toggle native checkbox (default behaviour) if present && if it wasn't the event target */
+        if (nativeCheckbox && shouldPropagate) {
+          nativeCheckbox.checked = !nativeCheckbox.checked;
+        }
+      }
+
+      function handleKeyDown() {
+        if (event.code === "Space") {
+          toggleCheckbox(true);
+        }
+      }
+
+      /* When focusing on the native checkbox, outline the custom checkbox 
+      *  This behaviour is only a visible behaviour as two elements can't be focused
+      *  within a single page
+      */
+      function handleFocus() {
+        if (document.activeElement === nativeCheckbox) {
+          customCheckbox.classList.add("custom-focus");
+        }
+      }
+
+      function handleBlur() {
+        customCheckbox.classList.remove("custom-focus");
+      }
+    </script>
+  </head>
+  <body>
+    <form>
+      <input
+        type="checkbox"
+        id="native-checkbox"
+        onclick="toggleCheckbox()"
+        onfocus="handleFocus()"
+        onblur="handleBlur()"
+        onmousedown="event.preventDefault()"
+      />
+      <div
+        id="custom-checkbox"
+        name="custom-checkbox"
+        onclick="toggleCheckbox(true)"
+        onkeydown="handleKeyDown()"
+        tabindex="0"
+        role="checkbox"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+          <rect width="256" height="256" fill="none"></rect>
+          <polyline
+            points="216 72.005 104 184 48 128.005"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="16"
+          ></polyline>
+        </svg>
+      </div>
+    </form>
+  </body>
+</html>
