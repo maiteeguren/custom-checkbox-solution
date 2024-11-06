@@ -5,6 +5,8 @@
   border-radius: 3px;
   svg {
     display: none;
+    color: white;
+    background: black;
   }
   margin-top: 5px;
 }
